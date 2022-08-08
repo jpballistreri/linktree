@@ -6,9 +6,13 @@ import {
 } from "firebase/auth";
 import { auth, userExist } from "../firebase/firebase";
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
+import AuthProvider from "../components/AuthProvider";
 
 export default function LoginView() {
-  const [currentUser, setCurrentUser] = useState(null);
+  const navigate = useNavigate();
+
+  //const [currentUser, setCurrentUser] = useState(null);
 
   /* State
 0: inicializando
@@ -19,26 +23,24 @@ export default function LoginView() {
 */
   const [state, setCurrentState] = useState(0);
 
-  useEffect(() => {
+  /* useEffect(() => {
     setCurrentState(1);
-    onAuthStateChanged(auth, handleUserStateChanged);
-  }, []);
-
-  const handleUserStateChanged = async (user) => {
-    if (user) {
-      const isRegistered = await userExist(user.uid);
-      if (isRegistered) {
-        //Redirigir a dashboard
-        setCurrentState(2);
+    onAuthStateChanged(auth, async (user) => {
+      if (user) {
+        const isRegistered = await userExist(user.uid);
+        if (isRegistered) {
+          navigate("/dashboard");
+          setCurrentState(2);
+        } else {
+          navigate("/choose-username");
+          setCurrentState(3);
+        }
       } else {
-        //Redirigir a choose username
-        setCurrentState(3);
+        setCurrentState(4);
+        console.log("No hay nadie autenticado");
       }
-    } else {
-      setCurrentState(4);
-      console.log("No hay nadie autenticado");
-    }
-  };
+    });
+  }, [navigate]); */
 
   const handleOnClick = () => {
     const signInWithGoogle = async (googleProvider) => {
@@ -53,7 +55,13 @@ export default function LoginView() {
     signInWithGoogle(googleProvider);
   };
 
-  if (state === 1) {
+  const handleUserLoggedIn = (user) => navigate("/dashboard");
+
+  const handleUserNotRegistered = (user) => navigate("/choose-username");
+
+  const handleUserNotLoggedIn = () => setCurrentState(4);
+
+  /* if (state === 1) {
     return <div>Loading</div>;
   }
 
@@ -64,7 +72,7 @@ export default function LoginView() {
   if (state === 3) {
     return <div>Estas autenticado pero no registrado</div>;
   }
-
+*/
   if (state === 4) {
     return (
       <div>
@@ -72,4 +80,14 @@ export default function LoginView() {
       </div>
     );
   }
+
+  return (
+    <AuthProvider
+      onUserLoggedIn={handleUserLoggedIn}
+      onUserNotRegistered={handleUserNotRegistered}
+      onUserNotLoggedIn={handleUserNotLoggedIn}
+    >
+      <div>Loading...</div>
+    </AuthProvider>
+  );
 }
