@@ -20,6 +20,8 @@ export default function LoginView() {
 2:loginCompleto
 3:login sin registro
 4:no hay nadie logueado
+5:ya existe el username
+6: nuevo username, click para continuar
 */
   const [state, setCurrentState] = useState(0);
 
