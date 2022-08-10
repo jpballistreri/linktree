@@ -3,7 +3,7 @@ import AuthProvider from "../components/AuthProvider";
 import { Link, useNavigate } from "react-router-dom";
 import DashboardWrapper from "../components/DashboardWrapper";
 import { v4 as uuidv4 } from "uuid";
-import { insertNewLink } from "../firebase/firebase";
+import { getLinks, insertNewLink } from "../firebase/firebase";
 
 export default function DashboardView() {
   const navigate = useNavigate();
@@ -13,9 +13,11 @@ export default function DashboardView() {
   const [url, setUrl] = useState("");
   const [links, setLinks] = useState([]);
 
-  const handleUserLoggedIn = (user) => {
+  const handleUserLoggedIn = async (user) => {
     setCurrentUser(user);
     setCurrentState(2);
+    const resLinks = await getLinks(user.uid);
+    setLinks([...resLinks]);
   };
 
   const handleUserNotRegistered = (user) => {
