@@ -87,3 +87,13 @@ export const getUserInfo = async (uid) => {
     console.log(error);
   }
 };
+
+export const insertNewLink = async (link) => {
+  try {
+    const docRef = collection(db, "links");
+    const res = await addDoc(docRef, link);
+    return res;
+  } catch (error) {
+    console.log(error);
+  }
+};

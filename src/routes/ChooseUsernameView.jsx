@@ -23,6 +23,7 @@ export default function ChooseUsernameView() {
   };
 
   const handleContinue = async () => {
+    setCurrentState(0);
     if (username !== "") {
       const exists = await existsUsername(username);
       if (exists) {
@@ -73,6 +74,8 @@ export default function ChooseUsernameView() {
       onUserLoggedIn={handleUserLoggedIn}
       onUserNotRegistered={handleUserNotRegistered}
       onUserNotLoggedIn={handleUserNotLoggedIn}
-    ></AuthProvider>
+    >
+      Loading...
+    </AuthProvider>
   );
 }
