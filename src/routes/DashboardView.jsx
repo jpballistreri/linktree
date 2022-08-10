@@ -4,6 +4,7 @@ import { Link, useNavigate } from "react-router-dom";
 import DashboardWrapper from "../components/DashboardWrapper";
 import { v4 as uuidv4 } from "uuid";
 import { getLinks, insertNewLink } from "../firebase/firebase";
+import LinkContainer from "../components/LinkContainer";
 
 export default function DashboardView() {
   const navigate = useNavigate();
@@ -57,6 +58,9 @@ export default function DashboardView() {
     }
   };
 
+  const handleDeleteLink = () => {};
+  const handleUpdateLink = () => {};
+
   if (state === 0)
     return (
       <AuthProvider
@@ -85,9 +89,13 @@ export default function DashboardView() {
 
       <div>
         {links.map((link) => (
-          <div link={link.id}>
-            <Link to={link.url}>{link.title}</Link>
-          </div>
+          <LinkContainer
+            key={link.docId}
+            url={link.url}
+            title={link.title}
+            onDelete={handleDeleteLink}
+            onUpdate={handleUpdateLink}
+          />
         ))}
       </div>
     </DashboardWrapper>
