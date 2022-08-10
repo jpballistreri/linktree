@@ -3,7 +3,12 @@ import AuthProvider from "../components/AuthProvider";
 import { Link, useNavigate } from "react-router-dom";
 import DashboardWrapper from "../components/DashboardWrapper";
 import { v4 as uuidv4 } from "uuid";
-import { getLinks, insertNewLink } from "../firebase/firebase";
+import {
+  deleteLink,
+  getLinks,
+  insertNewLink,
+  updateLink,
+} from "../firebase/firebase";
 import LinkContainer from "../components/LinkContainer";
 
 export default function DashboardView() {
@@ -18,6 +23,7 @@ export default function DashboardView() {
     setCurrentUser(user);
     setCurrentState(2);
     const resLinks = await getLinks(user.uid);
+    //console.log(resLinks);
     setLinks([...resLinks]);
   };
 
@@ -32,15 +38,15 @@ export default function DashboardView() {
     addLink();
   };
 
-  const addLink = () => {
+  const addLink = async () => {
     if (title !== "" && url !== "") {
       const newLink = {
-        id: uuidv4(),
+        docId: uuidv4(),
         title: title,
         url: url,
         uid: currentUser.uid,
       };
-      const res = insertNewLink(newLink);
+      const res = await insertNewLink(newLink);
       newLink.docId = res.id;
       setTitle("");
       setUrl("");
@@ -58,8 +64,18 @@ export default function DashboardView() {
     }
   };
 
-  const handleDeleteLink = () => {};
-  const handleUpdateLink = () => {};
+  const handleDeleteLink = async (docId) => {
+    await deleteLink(docId);
+    const tmp = links.filter((link) => link.docId !== docId);
+    setLinks([...tmp]);
+  };
+
+  const handleUpdateLink = async (docId, title, url) => {
+    const link = links.find((item) => item.docId === docId);
+    link.title = title;
+    link.url = url;
+    await updateLink(docId, link);
+  };
 
   if (state === 0)
     return (
@@ -91,6 +107,7 @@ export default function DashboardView() {
         {links.map((link) => (
           <LinkContainer
             key={link.docId}
+            docId={link.docId}
             url={link.url}
             title={link.title}
             onDelete={handleDeleteLink}

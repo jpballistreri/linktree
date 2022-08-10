@@ -115,3 +115,23 @@ export const getLinks = async (uid) => {
     console.log(error);
   }
 };
+
+export const updateLink = async (docId, link) => {
+  try {
+    const docRef = doc(db, "links", docId);
+    const res = await setDoc(docRef, link);
+    return res;
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export const deleteLink = async (docId) => {
+  try {
+    const docRef = doc(db, "links", docId);
+    const res = await deleteDoc(docRef);
+    return res;
+  } catch (error) {
+    console.log(error);
+  }
+};

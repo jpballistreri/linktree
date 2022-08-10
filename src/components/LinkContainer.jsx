@@ -52,6 +52,10 @@ export default function LinkContainer({
     onUpdate(docId, currentTitle, currentUrl);
   };
 
+  const handleDeleteLink = (e) => {
+    onDelete(docId);
+  };
+
   return (
     <div key={docId}>
       <div>
@@ -85,7 +89,7 @@ export default function LinkContainer({
         </div>
       </div>
       <div>
-        <button>Delete</button>
+        <button onClick={handleDeleteLink}>Delete</button>
       </div>
     </div>
   );
