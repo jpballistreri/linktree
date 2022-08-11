@@ -81,7 +81,7 @@ export const getUserInfo = async (uid) => {
   try {
     const docRef = doc(db, "users", uid);
     const document = await getDoc(docRef);
-    console.log(document.data());
+    //console.log(document.data());
     return document.data();
   } catch (error) {
     console.log(error);
@@ -131,6 +131,26 @@ export const deleteLink = async (docId) => {
     const docRef = doc(db, "links", docId);
     const res = await deleteDoc(docRef);
     return res;
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export const setUserProfilePhoto = async (uid, file) => {
+  try {
+    const imageRef = ref(storage, `images/${uid}`);
+    const resUpload = await uploadBytes(imageRef, file);
+    return resUpload;
+  } catch (error) {
+    console.error(error);
+  }
+};
+
+export const getProfilePhotoUrl = async (profilePicture) => {
+  try {
+    const imageRef = ref(storage, profilePicture);
+    const url = await getDownloadURL(imageRef);
+    return url;
   } catch (error) {
     console.log(error);
   }
