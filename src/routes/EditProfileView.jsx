@@ -9,6 +9,7 @@ import {
 } from "../firebase/firebase";
 import { updateCurrentUser } from "firebase/auth";
 import { useEffect } from "react";
+import style from "./editProfileView.module.css";
 
 export default function EditProfileView() {
   const navigate = useNavigate();
@@ -20,18 +21,15 @@ export default function EditProfileView() {
   useEffect(() => {
     const fetch = async () => {
       const url = await getProfilePhotoUrl(currentUser.profilePicture);
-      console.log(url);
       setProfileUrl(url);
     };
     fetch();
-  }, [currentUser]);
+  }, [currentUser, state]);
 
   const handleUserLoggedIn = async (user) => {
     setCurrentUser(user);
-    console.log(user);
-    const url = await getProfilePhotoUrl(user.profilePicture);
-    console.log(url);
-    setProfileUrl(url);
+    //const url = await getProfilePhotoUrl(user.profilePicture);
+    //setProfileUrl(url);
     setCurrentState(2);
   };
 
@@ -55,13 +53,8 @@ export default function EditProfileView() {
             ...currentUser,
             profilePicture: res.metadata.fullPath,
           };
-          console.log(tmpUser);
           await updateUser(tmpUser);
-          console.log(tmpUser);
           setCurrentUser({ ...tmpUser });
-          //const url = await getProfilePhotoUrl(currentUser.profilePicture);
-          //console.log(url);
-          //setProfileUrl(url);
         }
       };
     }
@@ -88,19 +81,19 @@ export default function EditProfileView() {
     <DashboardWrapper>
       <div>
         <h2>Edit Profile Info</h2>
-        <div>
+        <div className={style.profilePictureContainer}>
           <div>
             <img src={profileUrl} alt="" width={100}></img>
           </div>
           <div>
-            <button onClick={handleOpenFilePicker}>
+            <button className="btn" onClick={handleOpenFilePicker}>
               Choose new profile picture
             </button>
           </div>
           <input
+            className={style.fileInput}
             ref={fileRef}
             type="file"
-            style={{ display: "none" }}
             onChange={handleChangeFile}
           />
         </div>
