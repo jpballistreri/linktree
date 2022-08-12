@@ -155,3 +155,17 @@ export const getProfilePhotoUrl = async (profilePicture) => {
     console.log(error);
   }
 };
+
+export const getUserPublicProfileInfo = async (uid) => {
+  try {
+    const profileInfo = await getUserInfo(uid);
+    const linksInfo = await getLinks(uid);
+
+    return {
+      profileInfo: profileInfo,
+      linksInfo: linksInfo,
+    };
+  } catch (error) {
+    console.log(error);
+  }
+};
