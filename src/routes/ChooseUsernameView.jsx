@@ -12,8 +12,8 @@ export default function ChooseUsernameView() {
   const handleUserLoggedIn = (user) => navigate("/dashboard");
 
   const handleUserNotRegistered = (user) => {
-    setCurrentUser(user);
     setCurrentState(3);
+    setCurrentUser(user);
   };
 
   const handleUserNotLoggedIn = () => navigate("/login");
@@ -23,7 +23,6 @@ export default function ChooseUsernameView() {
   };
 
   const handleContinue = async () => {
-    setCurrentState(0);
     if (username !== "") {
       const exists = await existsUsername(username);
       if (exists) {

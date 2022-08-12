@@ -1,5 +1,5 @@
 import { initializeApp } from "firebase/app";
-import { getAuth } from "firebase/auth";
+import { getAuth, signOut } from "firebase/auth";
 import {
   getStorage,
   ref,
@@ -148,6 +148,7 @@ export const setUserProfilePhoto = async (uid, file) => {
 
 export const getProfilePhotoUrl = async (profilePicture) => {
   try {
+    console.log(profilePicture);
     const imageRef = ref(storage, profilePicture);
     const url = await getDownloadURL(imageRef);
     return url;
@@ -168,4 +169,8 @@ export const getUserPublicProfileInfo = async (uid) => {
   } catch (error) {
     console.log(error);
   }
+};
+
+export const logout = async () => {
+  await auth.signOut();
 };

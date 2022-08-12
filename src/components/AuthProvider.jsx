@@ -29,6 +29,7 @@ export default function AuthProvider({
           const userInfo = await getUserInfo(user.uid);
           if (userInfo.processCompleted) {
             console.log("completado");
+            console.log(userInfo);
             onUserLoggedIn(userInfo);
           } else {
             console.log("no completado");

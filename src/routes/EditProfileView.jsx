@@ -8,17 +8,29 @@ import {
   updateUser,
 } from "../firebase/firebase";
 import { updateCurrentUser } from "firebase/auth";
+import { useEffect } from "react";
 
 export default function EditProfileView() {
   const navigate = useNavigate();
   const [currentUser, setCurrentUser] = useState({});
   const [state, setCurrentState] = useState(0);
-  const [profileUrl, setProfileUrl] = useState(null);
+  const [profileUrl, setProfileUrl] = useState("");
   const fileRef = useRef();
+
+  useEffect(() => {
+    const fetch = async () => {
+      const url = await getProfilePhotoUrl(currentUser.profilePicture);
+      console.log(url);
+      setProfileUrl(url);
+    };
+    fetch();
+  }, [currentUser]);
 
   const handleUserLoggedIn = async (user) => {
     setCurrentUser(user);
+    console.log(user);
     const url = await getProfilePhotoUrl(user.profilePicture);
+    console.log(url);
     setProfileUrl(url);
     setCurrentState(2);
   };
@@ -45,9 +57,11 @@ export default function EditProfileView() {
           };
           console.log(tmpUser);
           await updateUser(tmpUser);
+          console.log(tmpUser);
           setCurrentUser({ ...tmpUser });
-          const url = await getProfilePhotoUrl(currentUser.profilePicture);
-          setProfileUrl(url);
+          //const url = await getProfilePhotoUrl(currentUser.profilePicture);
+          //console.log(url);
+          //setProfileUrl(url);
         }
       };
     }
