@@ -10,6 +10,8 @@ import {
   updateLink,
 } from "../firebase/firebase";
 import LinkContainer from "../components/LinkContainer";
+import style from "./dashboardView.module.css";
+import styleLinks from "../components/linkContainer.module.css";
 
 export default function DashboardView() {
   const navigate = useNavigate();
@@ -92,18 +94,34 @@ export default function DashboardView() {
     <DashboardWrapper>
       <div>
         <h1>DASHBOARD</h1>
-        <form action="" onSubmit={handleOnSubmit}>
+        <form
+          className={style.entryContainer}
+          action=""
+          onSubmit={handleOnSubmit}
+        >
           <label htmlFor="title">Title</label>
-          <input type="text" name="title" onChange={handleOnChange} />
+          <input
+            className="input"
+            type="text"
+            name="title"
+            onChange={handleOnChange}
+            value={title}
+          />
 
-          <label htmlFor="url">Title</label>
-          <input type="text" name="url" onChange={handleOnChange} />
+          <label htmlFor="url">Link</label>
+          <input
+            className="input"
+            type="text"
+            name="url"
+            onChange={handleOnChange}
+            value={url}
+          />
 
-          <input type="submit" value="Create new link" />
+          <input className="btn" type="submit" value="Create new link" />
         </form>
       </div>
 
-      <div>
+      <div className={styleLinks.linksContainer}>
         {links.map((link) => (
           <LinkContainer
             key={link.docId}

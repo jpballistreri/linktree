@@ -7,6 +7,8 @@ import {
   getProfilePhotoUrl,
   getUserPublicProfileInfo,
 } from "../firebase/firebase";
+import style from "./publicProfileView.module.css";
+import styleLinks from "../components/publicLink.module.css";
 
 export default function PublicProfileView() {
   const params = useParams();
@@ -49,13 +51,13 @@ export default function PublicProfileView() {
   }
 
   return (
-    <div>
-      <div>
+    <div className={style.profileContainer}>
+      <div className={style.profilePicture}>
         {loading ? "Loading..." : <img src={pictureUrl} alt="public" />}
       </div>
       <h2>{profile?.profileInfo.username}</h2>
       <h3>{profile?.profileInfo.displayName}</h3>
-      <div>
+      <div className={styleLinks.publicLinksContainer}>
         {profile?.linksInfo.map((link) => (
           <PublicLink key={link.docId} url={link.url} title={link.title} />
         ))}

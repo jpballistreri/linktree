@@ -1,6 +1,7 @@
 import React from "react";
 import { useState, useEffect, useRef } from "react";
 import { Link } from "react-router-dom";
+import style from "./linkContainer.module.css";
 
 export default function LinkContainer({
   docId,
@@ -57,22 +58,26 @@ export default function LinkContainer({
   };
 
   return (
-    <div key={docId}>
-      <div>
-        {editTitle ? (
-          <input
-            ref={titleRef}
-            value={currentTitle}
-            onChange={handleChangeTitle}
-            onBlur={handleBlurTitle}
-          />
-        ) : (
-          <>
-            <button onClick={handleEditTitle}>Edit title</button>
-            {currentTitle}
-          </>
-        )}
-        <div>
+    <div className={style.link}>
+      <div className={style.linkInfo}>
+        <div className={style.linkTitle}>
+          {editTitle ? (
+            <input
+              ref={titleRef}
+              value={currentTitle}
+              onChange={handleChangeTitle}
+              onBlur={handleBlurTitle}
+            />
+          ) : (
+            <>
+              <button className={style.btnEdit} onClick={handleEditTitle}>
+                <i className="material-icons">edit</i>
+              </button>
+              {currentTitle}
+            </>
+          )}
+        </div>
+        <div className={style.linkUrl}>
           {editUrl ? (
             <input
               ref={urlRef}
@@ -82,14 +87,18 @@ export default function LinkContainer({
             />
           ) : (
             <>
-              <button onClick={handleEditUrl}>Edit URL</button>
+              <button className={style.btnEdit} onClick={handleEditUrl}>
+                <i className="material-icons">edit</i>
+              </button>
               {currentUrl}
             </>
           )}
         </div>
       </div>
-      <div>
-        <button onClick={handleDeleteLink}>Delete</button>
+      <div className={style.linkActions}>
+        <button className={style.btnDelete} onClick={handleDeleteLink}>
+          <span className="material-icons">delete</span>
+        </button>
       </div>
     </div>
   );
