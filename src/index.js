@@ -17,7 +17,7 @@ root.render(
   <BrowserRouter>
     <Navbar />
     <Routes>
-      <Route path="/" element={<App />} />
+      <Route path="/" element={<DashboardView />} />
       <Route path="/login" element={<LoginView />} />
       <Route path="/dashboard" element={<DashboardView />} />
       <Route path="/dashboard/profile" element={<EditProfileView />} />
