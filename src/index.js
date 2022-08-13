@@ -10,10 +10,12 @@ import EditProfileView from "./routes/EditProfileView";
 import SignOutView from "./routes/SignOutView";
 import PublicProfileView from "./routes/PublicProfileView";
 import ChooseUsernameView from "./routes/ChooseUsernameView";
+import Navbar from "./components/Navbar";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <BrowserRouter>
+    <Navbar />
     <Routes>
       <Route path="/" element={<App />} />
       <Route path="/login" element={<LoginView />} />

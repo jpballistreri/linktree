@@ -78,7 +78,7 @@ export default function EditProfileView() {
     );
 
   return (
-    <DashboardWrapper>
+    <>
       <div>
         <h2>Edit Profile Info</h2>
         <div className={style.profilePictureContainer}>
@@ -98,6 +98,6 @@ export default function EditProfileView() {
           />
         </div>
       </div>
-    </DashboardWrapper>
+    </>
   );
 }

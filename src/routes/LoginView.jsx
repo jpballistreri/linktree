@@ -50,9 +50,8 @@ export default function LoginView() {
     const signInWithGoogle = async (googleProvider) => {
       try {
         const res = await signInWithPopup(auth, googleProvider);
-        console.log(res);
       } catch (error) {
-        console.error(error);
+        console.log(error);
       }
     };
     const googleProvider = new GoogleAuthProvider();
@@ -60,28 +59,16 @@ export default function LoginView() {
   };
 
   const handleUserLoggedIn = (user) => navigate("/dashboard");
-
   const handleUserNotRegistered = (user) => navigate("/choose-username");
-
   const handleUserNotLoggedIn = () => setCurrentState(4);
 
-  /* if (state === 1) {
-    return <div>Loading</div>;
-  }
-
-  if (state === 2) {
-    return <div>Login completo</div>;
-  }
-
-  if (state === 3) {
-    return <div>Estas autenticado pero no registrado</div>;
-  }
-*/
   if (state === 4) {
     return (
       <div className={style.loginView}>
         <div>
-          <h1>linkTree</h1>
+          <h1>
+            linkTreeClone<span className="material-icons green">park</span>
+          </h1>
         </div>
         <button className={style.provider} onClick={handleOnClick}>
           Login with Google

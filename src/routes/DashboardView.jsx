@@ -91,7 +91,7 @@ export default function DashboardView() {
     );
 
   return (
-    <DashboardWrapper>
+    <>
       <div>
         <h1>DASHBOARD</h1>
         <form
@@ -133,6 +133,6 @@ export default function DashboardView() {
           />
         ))}
       </div>
-    </DashboardWrapper>
+    </>
   );
 }
