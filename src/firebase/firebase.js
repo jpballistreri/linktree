@@ -43,13 +43,11 @@ export const userExists = async (uid) => {
 };
 
 export const existsUsername = async (username) => {
-  console.log(username);
   const users = [];
   const docsRef = collection(db, "users");
   const q = query(docsRef, where("username", "==", username));
 
   const querySnapshot = await getDocs(q);
-  console.log(querySnapshot);
 
   querySnapshot.forEach((doc) => {
     users.push(doc.data());
@@ -142,18 +140,17 @@ export const setUserProfilePhoto = async (uid, file) => {
     const resUpload = await uploadBytes(imageRef, file);
     return resUpload;
   } catch (error) {
-    console.error(error);
+    //console.error(error);
   }
 };
 
 export const getProfilePhotoUrl = async (profilePicture) => {
   try {
-    console.log(profilePicture);
     const imageRef = ref(storage, profilePicture);
     const url = await getDownloadURL(imageRef);
     return url;
   } catch (error) {
-    console.log(error);
+    //console.log(error);
   }
 };
 

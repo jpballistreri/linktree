@@ -48,7 +48,6 @@ export default function EditProfileView() {
         const imageData = fileReader.result;
         const res = await setUserProfilePhoto(currentUser.uid, imageData);
         if (res) {
-          console.log(res);
           const tmpUser = {
             ...currentUser,
             profilePicture: res.metadata.fullPath,
